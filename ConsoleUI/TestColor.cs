@@ -2,8 +2,6 @@
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleUI
 {
@@ -12,7 +10,7 @@ namespace ConsoleUI
         public static void ListColor()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.Id + " -- " + color.Name);
             }
@@ -34,8 +32,8 @@ namespace ConsoleUI
                 ColorManager colorManager = new ColorManager(new EfColorDal());
                 var updatedColor = colorManager.GetById(id);
                 Console.WriteLine("Markanın Adını Giriniz: ");
-                updatedColor.Name = Console.ReadLine();
-                colorManager.Update(updatedColor);
+                updatedColor.Data.Name = Console.ReadLine();
+                colorManager.Update(updatedColor.Data);
 
                 Console.WriteLine("Renk Başarıyla Güncellendi");
             }
@@ -52,7 +50,7 @@ namespace ConsoleUI
             {
                 ColorManager colorManager = new ColorManager(new EfColorDal());
                 var deletedColor = colorManager.GetById(id);
-                colorManager.Delete(deletedColor);
+                colorManager.Delete(deletedColor.Data);
                 Console.WriteLine("Seçilen Renk Başarıyla Silindi");
             }
             catch (Exception)

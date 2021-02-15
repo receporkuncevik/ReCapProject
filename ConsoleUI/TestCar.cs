@@ -11,7 +11,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName + " -- " + car.BrandName + " -- " + car.ColorName + " -- " + car.DailyPrice);
             }
@@ -21,7 +21,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car.Id + " -- " + car.Name);
             }
@@ -58,7 +58,7 @@ namespace ConsoleUI
             {
                 CarManager carManager = new CarManager(new EfCarDal());
                 var silinecekAraba = carManager.GetById(id);
-                carManager.Delete(silinecekAraba);
+                carManager.Delete(silinecekAraba.Data);
             }
             catch (Exception)
             {
@@ -81,14 +81,14 @@ namespace ConsoleUI
             Console.Write("Araba Açıklaması: ");
             string carDescription = Console.ReadLine();
 
-            updateCar.BrandId = 2;
-            updateCar.ColorId = 1;
-            updateCar.DailyPrice = carPrice;
-            updateCar.Name = carName;
-            updateCar.ModelYear = carYear;
-            updateCar.Description = carDescription;
+            updateCar.Data.BrandId = 2;
+            updateCar.Data.ColorId = 1;
+            updateCar.Data.DailyPrice = carPrice;
+            updateCar.Data.Name = carName;
+            updateCar.Data.ModelYear = carYear;
+            updateCar.Data.Description = carDescription;
 
-            carManager.Update(updateCar);
+            carManager.Update(updateCar.Data);
 
         }
 

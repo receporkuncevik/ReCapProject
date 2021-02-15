@@ -11,7 +11,7 @@ namespace ConsoleUI
         public static void ListBrands()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.Id + " -- " + brand.Name);
             }
@@ -33,8 +33,8 @@ namespace ConsoleUI
                 BrandManager brandManager = new BrandManager(new EfBrandDal());
                 var updatedBrand = brandManager.GetById(id);
                 Console.WriteLine("Markanın Adını Giriniz: ");
-                updatedBrand.Name = Console.ReadLine();
-                brandManager.Update(updatedBrand);
+                updatedBrand.Data.Name = Console.ReadLine();
+                brandManager.Update(updatedBrand.Data);
 
                 Console.WriteLine("Marka Başarıyla Güncellendi");
             }
@@ -51,7 +51,7 @@ namespace ConsoleUI
             {
                 BrandManager brandManager = new BrandManager(new EfBrandDal());
                 var deletedBrand = brandManager.GetById(id);
-                brandManager.Delete(deletedBrand);
+                brandManager.Delete(deletedBrand.Data);
                 Console.WriteLine("Seçilen Marka Başarıyla Silindi");
             }
             catch (Exception)
